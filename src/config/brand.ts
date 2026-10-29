@@ -1,0 +1,15 @@
+export const brand = {
+  name: "Criseida",
+  wordmark: "CRISEIDA",
+  monogram: "C",
+  shortName: "Criseida",
+  tagline: "Donde el tiempo se vuelve luz.",
+  subtitle: "Joyas inspiradas en los mitos y las civilizaciones que nos precedieron.",
+  subtitleDesignedInSpain: "Joyas inspiradas en los mitos y las civilizaciones que nos precedieron. Diseñadas en España.",
+  designedInSpainVerified: false,
+  storyHeading: "Criseida significa la dorada.",
+  storyText: "Su nombre atraviesa la literatura desde Homero. Nosotros lo llevamos a la joya.",
+  collectionEdition: "I",
+  collectionLabel: "Grecia",
+  url: process.env.SITE_URL ?? "http://localhost:3000",
+};
