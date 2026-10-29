@@ -1,0 +1,59 @@
+{
+  "description": "AI-assisted editorial reinterpretations and demonstration packshots. Originals preserved outside repository; prompts and output paths recorded.",
+  "assets": [
+    {
+      "key": "art-botticelli",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-81d7270f-3b09-43a3-88e7-07d68dcb2bae.png",
+      "prompt": "Edit target image 1, a public-domain Botticelli workshop portrait, into a refined art jewelry campaign. Image 2 and 3 are supporting product references. Preserve the woman's distinctive profile, Renaissance tempera texture, braided blonde hair and coral dress. Remove outer gold picture frame. She now WEARS the exact oval gold chain necklace of image 2 naturally around her neck and one of the curved ridged hoop earrings of image 3 attached to her visible ear (gently expose ear only if needed). Integrate jewelry with subtle painterly shading, retain exact recognizable designs and small believable wearable scale, not oversized. Extend the existing dark blue-green architectural painting background to create a landscape 3:2 composition, woman at the right two thirds, left third quiet dark space for website text (do not render text). Soft, subtle, delicate high-end art direction, natural antique pigments, not gaudy shiny gold. No text, logos, graphics, picture frame, collage borders, extra jewelry, modern photographic skin. High detail.",
+      "output": "public/images/art-botticelli.webp"
+    },
+    {
+      "key": "art-ingres",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-ffcac354-8741-4b79-a732-be7e7e6e8499.png",
+      "prompt": "Edit target image 1, public-domain Madame Moitessier by Ingres, for a delicate contemporary jewelry art editorial. Product reference images 2 and 3 supply the exact jewelry designs. Preserve her face, hand pose, flower-patterned silk dress, mirror reflection and authentic 19th century oil paint surface. Place the seven-stone pink lavender pale blue flower ring from image 2 on one finger of her hand resting by her cheek, correctly wrapped around finger. Place the small four-band ring stack of image 3 on one finger of her lower resting hand, replacing the original ring there. Exact recognizable shapes, plausible real ring scale, subtle highlights, paint texture integrated. Simplify existing wrist bracelets to keep focus on the two new rings. Portrait 3:4 composition including head, upper body and both hands, crop out lower dress excess. No text, no overlaid labels, no outer picture frame, no modern photographic face, no extra fingers. Muted green, faded rose, cream, delicate refined feel.",
+      "output": "public/images/art-ingres.webp"
+    },
+    {
+      "key": "gold-plated-cuban-link-chain-necklace",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-e74460a5-4eea-4e85-8a30-769f4c65d9a9.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/gold-plated-cuban-link-chain-necklace.webp"
+    },
+    {
+      "key": "collar-de-cadena-bano-de-oro",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-763c58e6-05b9-48c4-8b96-a7d6cc85624a.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/collar-de-cadena-bano-de-oro.webp"
+    },
+    {
+      "key": "large-waterproof-gold-plated-hoop-earrings",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-0939f2e5-fd1c-4d39-871d-f59c610349f7.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/large-waterproof-gold-plated-hoop-earrings.webp"
+    },
+    {
+      "key": "gilded-gold-statement-hoop-earrings",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-d6038c93-ae8c-4179-baff-5b665cdca758.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/gilded-gold-statement-hoop-earrings.webp"
+    },
+    {
+      "key": "radiance-stackable-rings-set-brushed-gold",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-5b4cdb13-e528-48b7-8bb1-8d17f5042515.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/radiance-stackable-rings-set-brushed-gold.webp"
+    },
+    {
+      "key": "semi-precious-stone-ring",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-6d35c90d-28e1-402f-b38e-fda5b249c43f.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/semi-precious-stone-ring.webp"
+    },
+    {
+      "key": "pulseira-de-charms-banhada-a-ouro",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-b6d98a4a-c6c2-4bff-bdde-724ab00e5f74.png",
+      "prompt": "Edit the supplied product photograph: isolate ONLY the exact jewelry product as a clean ecommerce packshot on a transparent background. Remove background, backdrop shadows and bottom label strip if any. Keep the exact same jewelry design, physical shape, metal color, gemstone arrangement, number of components, angle and fine details. Do not redesign, add or remove stones, links or charms. Center the complete product with an even margin in a square image, jewelry occupies about 78% of canvas width. Soft neutral studio lighting, realistic warm gold without saturation boost, precise edges, no prop, no text, no watermark, no new ornament. Preserve hollow areas as transparent, background alpha required.",
+      "output": "public/images/products/pulseira-de-charms-banhada-a-ouro.webp"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import {
   CART_QUERY,
   COLLECTION_QUERY,
   FEATURED_COLLECTION_QUERY,
+  HOME_COLLECTIONS_QUERY,
   PRODUCT_QUERY,
   SITEMAP_QUERY,
 } from "@/src/lib/shopify/queries";
@@ -18,6 +19,11 @@ import type { Cart, Collection, Product, ProductSortKey } from "@/src/lib/shopif
 export async function getFeaturedCollection(): Promise<Collection | null> {
   const data = await shopifyFetch<{ collections: { nodes: RawCollection[] } }>(FEATURED_COLLECTION_QUERY);
   return data.collections.nodes[0] ? mapCollection(data.collections.nodes[0]) : null;
+}
+
+export async function getHomeCollections(): Promise<Collection[]> {
+  const data = await shopifyFetch<{ collections: { nodes: RawCollection[] } }>(HOME_COLLECTIONS_QUERY);
+  return data.collections.nodes.map(mapCollection);
 }
 
 export async function getCollection(handle: string, sortKey: ProductSortKey = "BEST_SELLING") {

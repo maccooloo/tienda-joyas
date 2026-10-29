@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: new URL("/", base).toString(), changeFrequency: "weekly", priority: 1 },
+    { url: new URL("/manifiesto", base).toString(), changeFrequency: "monthly", priority: 0.6 },
     ...routes.collections.map((collection) => ({
       url: new URL(`/colecciones/${collection.handle}`, base).toString(),
       lastModified: collection.updatedAt,

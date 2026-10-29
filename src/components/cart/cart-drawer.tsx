@@ -7,6 +7,7 @@ import { BrandPlaceholder } from "@/src/components/brand/brand-placeholder";
 import { brand } from "@/src/config/brand";
 import { formatMoney } from "@/src/lib/format";
 import { useCart } from "@/src/components/cart/cart-provider";
+import { CartRecommendations } from "@/src/components/cart/cart-recommendations";
 
 export function CartDrawer() {
   const { cart, isOpen, isPending, error, closeCart, changeQuantity, removeLine, clearError } = useCart();
@@ -24,7 +25,7 @@ export function CartDrawer() {
       if (event.key !== "Tab") return;
 
       const focusable = document.querySelectorAll<HTMLElement>(
-        "[data-cart-dialog] button:not(:disabled), [data-cart-dialog] a[href], [data-cart-dialog] input:not(:disabled)",
+        "[data-cart-dialog] button:not(:disabled), [data-cart-dialog] a[href]:not([tabindex='-1']), [data-cart-dialog] input:not(:disabled), [data-cart-dialog] select:not(:disabled)",
       );
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -117,16 +118,17 @@ export function CartDrawer() {
               ))}
             </ul>
 
+            <CartRecommendations />
             <div className="cart-summary">
               <p><span>Subtotal</span><strong>{formatMoney(cart.subtotal)}</strong></p>
-              <p className="cart-note">Envío e impuestos se calculan en Shopify.</p>
+              <p className="cart-note">Envío e impuestos calculados al finalizar la compra.</p>
               {cart.checkoutUrl ? (
                 <a className="button button-dark checkout-button" href={cart.checkoutUrl}>
                   Finalizar compra <span aria-hidden="true">↗</span>
                 </a>
               ) : (
                 <button className="button button-dark checkout-button" disabled>
-                  {isPending ? "Actualizando carrito..." : "Preparando checkout..."}
+                  {isPending ? "Actualizando carrito..." : "Preparando el pago..."}
                 </button>
               )}
               <Link href="/#coleccion" className="text-link" onClick={closeCart}>

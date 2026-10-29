@@ -41,6 +41,34 @@ export const FEATURED_COLLECTION_QUERY = `
             id handle title description availableForSale
             priceRange { minVariantPrice { amount currencyCode } }
             featuredImage { url altText width height }
+            images(first: 3) { nodes { url altText width height } }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const HOME_COLLECTIONS_QUERY = `
+  query HomeCollections @inContext(country: ES, language: ES) {
+    collections(first: 4, sortKey: UPDATED_AT) {
+      nodes {
+        id handle title description
+        image { url altText width height }
+        products(first: 8, sortKey: BEST_SELLING) {
+          nodes {
+            id handle title description availableForSale
+            priceRange { minVariantPrice { amount currencyCode } }
+            featuredImage { url altText width height }
+            images(first: 2) { nodes { url altText width height } }
+            variants(first: 20) {
+              nodes {
+                id title availableForSale quantityAvailable
+                price { amount currencyCode }
+                selectedOptions { name value }
+                image { url altText width height }
+              }
+            }
           }
         }
       }
@@ -61,6 +89,7 @@ export const COLLECTION_QUERY = `
           id handle title description availableForSale
           priceRange { minVariantPrice { amount currencyCode } }
           featuredImage { url altText width height }
+          images(first: 2) { nodes { url altText width height } }
         }
       }
     }
@@ -101,7 +130,7 @@ export const CART_QUERY = `
             ... on ProductVariant {
               id
               title
-              product { title }
+              product { title handle }
               image { url altText width height }
               price { amount currencyCode }
             }

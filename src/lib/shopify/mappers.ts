@@ -1,4 +1,6 @@
 import type { Cart, CartLine, Collection, Product, ProductMedia, ProductVariant, ShopifyImage } from "@/src/lib/shopify/types";
+import { storefrontConfig } from "@/src/lib/shopify/config";
+import { collectionEditorial, demoPackshots, demoProductTitles } from "@/src/lib/editorial";
 
 type RawImage = {
   url: string;
@@ -52,6 +54,8 @@ function mapImage(image?: RawImage | null): ShopifyImage | null {
 }
 
 export function mapProduct(raw: RawProduct): Product {
+  const title = storefrontConfig.isMockShop ? demoProductTitles[raw.handle] ?? raw.title : raw.title;
+  const packshot = demoImage(raw.handle, title);
   const variants: ProductVariant[] = (raw.variants?.nodes ?? []).map((variant) => ({
     id: variant.id,
     title: variant.title,
@@ -59,7 +63,7 @@ export function mapProduct(raw: RawProduct): Product {
     quantityAvailable: variant.quantityAvailable ?? null,
     price: variant.price,
     selectedOptions: variant.selectedOptions ?? [],
-    image: mapImage(variant.image),
+    image: packshot ?? mapImage(variant.image),
   }));
 
   const media = (raw.media?.nodes ?? []).flatMap<ProductMedia>((node) => {
@@ -79,17 +83,17 @@ export function mapProduct(raw: RawProduct): Product {
   return {
     id: raw.id,
     handle: raw.handle,
-    title: raw.title,
+    title,
     description: raw.description ?? "",
     availableForSale: raw.availableForSale,
     price: raw.priceRange.minVariantPrice,
-    featuredImage: mapImage(raw.featuredImage),
-    images: (raw.images?.nodes ?? []).flatMap((image) => {
+    featuredImage: packshot ?? mapImage(raw.featuredImage),
+    images: packshot ? [packshot] : (raw.images?.nodes ?? []).flatMap((image) => {
       const mapped = mapImage(image);
       return mapped ? [mapped] : [];
     }),
     variants,
-    media,
+    media: packshot ? [{ type: "image", image: packshot }, ...media.filter((item) => item.type === "model3d")] : media,
   };
 }
 
@@ -97,10 +101,10 @@ export function mapCollection(raw: RawCollection): Collection {
   return {
     id: raw.id,
     handle: raw.handle,
-    title: raw.title,
+    title: storefrontConfig.isMockShop ? collectionEditorial[raw.handle]?.title ?? raw.title : raw.title,
     description: raw.description ?? "",
     image: mapImage(raw.image),
-    products: raw.products.nodes.map(mapProduct),
+    products: raw.products.nodes.filter((product) => !storefrontConfig.isMockShop || !product.handle.includes("watch")).map(mapProduct),
   };
 }
 
@@ -116,7 +120,7 @@ type RawCart = {
       merchandise: {
         id: string;
         title: string;
-        product: { title: string };
+        product: { title: string; handle?: string };
         image?: RawImage | null;
         price: RawMoney;
       };
@@ -130,9 +134,9 @@ export function mapCart(raw: RawCart): Cart {
     id: line.id,
     quantity: line.quantity,
     merchandiseId: line.merchandise.id,
-    title: line.merchandise.product.title,
+    title: storefrontConfig.isMockShop ? demoProductTitles[line.merchandise.product.handle ?? ""] ?? line.merchandise.product.title : line.merchandise.product.title,
     variantTitle: line.merchandise.title,
-    image: mapImage(line.merchandise.image),
+    image: demoImage(line.merchandise.product.handle, line.merchandise.product.title) ?? mapImage(line.merchandise.image),
     unitPrice: line.merchandise.price,
     totalPrice: line.cost.totalAmount,
   }));
@@ -147,3 +151,8 @@ export function mapCart(raw: RawCart): Cart {
 }
 
 export type { RawCollection, RawProduct, RawCart };
+
+function demoImage(handle: string | undefined, title: string): ShopifyImage | null {
+  const url = storefrontConfig.isMockShop && handle ? demoPackshots[handle] : undefined;
+  return url ? { url, altText: title, width: 1000, height: 1000 } : null;
+}

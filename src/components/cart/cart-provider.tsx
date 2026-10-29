@@ -105,7 +105,7 @@ export function CartProvider({ initialCart, children }: { initialCart: Cart | nu
           ],
     };
 
-    openCart();
+    if (!isOpen) openCart();
     runCartAction(nextCart, () => addItemToCart(variantId, quantity));
   }
 

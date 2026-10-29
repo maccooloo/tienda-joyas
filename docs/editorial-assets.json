@@ -1,0 +1,38 @@
+﻿{
+  "purpose": "Campaña artística de Criseida. Obras de dominio público reinterpretadas con IA con piezas del catálogo de demostración. Los vídeos son montajes animados, no rodajes.",
+  "assets": [
+    {
+      "files": [
+        "public/images/art-botticelli.webp"
+      ],
+      "creator": "Taller de Sandro Botticelli",
+      "work": "Retrato de perfil de una joven",
+      "source": "https://commons.wikimedia.org/wiki/File:Botticelli_-_Portrait_of_a_Young_Woman,_probably_Simonetta_Vespucci.jpg",
+      "license": "Public domain / PD-Art",
+      "changes": "Reinterpretación: collar y pendiente del catálogo, encuadre horizontal ampliado, eliminación del marco; WebP."
+    },
+    {
+      "files": [
+        "public/images/art-ingres.webp"
+      ],
+      "creator": "Jean-Auguste-Dominique Ingres",
+      "work": "Madame Moitessier (1856)",
+      "source": "https://commons.wikimedia.org/wiki/File:Madame_Moitessier_by_Jean-Auguste-Dominique_Ingres.jpg",
+      "license": "Public domain / PD-Art",
+      "changes": "Reinterpretación con anillo floral y anillos apilables del catálogo. WebP."
+    },
+    {
+      "files": [
+        "public/videos/criseida-art.mp4",
+        "public/videos/criseida-manifesto.mp4"
+      ],
+      "changes": "Montajes locales con FFmpeg a partir de las reinterpretaciones: acercamiento lento cíclico de 12 segundos y montaje de 17 segundos con fundidos de 1,5 segundos. H.264, 1600×900, 24 fps, sin audio, faststart. 1,55 MB y 2,80 MB."
+    },
+    {
+      "directory": "public/images/products/",
+      "source": "Shopify jewelry-dropship.mock.shop catalogue",
+      "changes": "Siete packshots aislados a partir de imágenes de producto, fondo transparente. Solo se aplican al catálogo de demostración. Productos y variantes de una tienda real conservan las imágenes de Shopify."
+    }
+  ],
+  "generationPrompts": "art-generation.json"
+}
