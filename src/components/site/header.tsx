@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -12,8 +12,18 @@ import { CartButton } from "@/src/components/site/cart-button";
 type Panel = "shop" | "collections" | "brand";
 const panelNames = { shop: "Shop", collections: "Colecciones", brand: "La marca" };
 
-export function SiteHeader({ isMockShop }: { isMockShop: boolean }) {
+function PathnameReporter({ onChange }: { onChange: (pathname: string) => void }) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    onChange(pathname);
+  }, [onChange, pathname]);
+
+  return null;
+}
+
+export function SiteHeader({ isMockShop }: { isMockShop: boolean }) {
+  const [pathname, setPathname] = useState("");
   const isFilmPage = pathname === "/" || pathname === "/manifiesto";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -87,6 +97,7 @@ export function SiteHeader({ isMockShop }: { isMockShop: boolean }) {
       </nav>
       <div className="header-actions" onPointerEnter={close}><CartButton /></div>
     </header>
+    <Suspense fallback={null}><PathnameReporter onChange={setPathname} /></Suspense>
     {panel && <div className={`shop-menu-backdrop ${modal ? "is-modal" : "is-hover"}`} onClick={(event) => { if (event.target === event.currentTarget) close(); }} onPointerMove={(event) => { if (event.target === event.currentTarget) scheduleClose(); }}>
       <div ref={menuRef} id="shop-menu" className="shop-menu-panel" role={modal ? "dialog" : undefined} aria-modal={modal || undefined} aria-label={panelNames[panel]} onPointerEnter={cancelClose} onPointerLeave={scheduleClose}
         onBlur={(event) => { if (!modal && !event.currentTarget.contains(event.relatedTarget)) close(); }}>
