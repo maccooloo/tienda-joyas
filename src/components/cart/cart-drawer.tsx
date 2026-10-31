@@ -21,7 +21,10 @@ export function CartDrawer() {
     closeButtonRef.current?.focus();
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") closeCart();
+      if (event.key === "Escape") {
+        if (event.target instanceof Element && event.target.closest("[data-cart-dialog] [role='listbox']")) return;
+        closeCart();
+      }
       if (event.key !== "Tab") return;
 
       const focusable = document.querySelectorAll<HTMLElement>(
