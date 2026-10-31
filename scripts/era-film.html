@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><title>Composición de épocas</title>
+<style>html,body{margin:0;background:#181b17}canvas{display:block}</style>
+<canvas id="film"></canvas>
+<script>
+// Offline compositing only. The storefront downloads the encoded film, not this renderer.
+window.initializeFilm = async ({ width, height, images }) => {
+  const canvas = document.querySelector('canvas');
+  canvas.width = width; canvas.height = height;
+  const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: true });
+  if (!gl) throw new Error('WebGL is required for offline film rendering');
+  const vertex = `attribute vec2 position; varying vec2 uv;
+    void main(){uv=vec2((position.x+1.)*.5,1.-(position.y+1.)*.5);gl_Position=vec4(position,0.,1.);}`;
+  const fragment = `precision highp float;
+    varying vec2 uv; uniform float time; uniform float portrait;
+    uniform sampler2D art0; uniform sampler2D live0; uniform sampler2D blink0;
+    uniform sampler2D art1; uniform sampler2D live1; uniform sampler2D blink1;
+    uniform sampler2D art2; uniform sampler2D live2; uniform sampler2D blink2;
+    uniform sampler2D art3; uniform sampler2D live3; uniform sampler2D blink3;
+    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+      return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+    float grainField(vec2 p){return .65*noise(p)+.25*noise(p*2.1)+.1*noise(p*4.3);}
+    float ellipse(vec2 p,vec2 c,vec2 r){return 1.-smoothstep(.6,1.,length((p-c)/r));}
+    vec3 artSample(int id,vec2 p){if(id==0)return texture2D(art0,p).rgb;if(id==1)return texture2D(art1,p).rgb;if(id==2)return texture2D(art2,p).rgb;return texture2D(art3,p).rgb;}
+    vec3 liveSample(int id,vec2 p){if(id==0)return texture2D(live0,p).rgb;if(id==1)return texture2D(live1,p).rgb;if(id==2)return texture2D(live2,p).rgb;return texture2D(live3,p).rgb;}
+    vec3 blinkSample(int id,vec2 p){if(id==0)return texture2D(blink0,p).rgb;if(id==1)return texture2D(blink1,p).rgb;if(id==2)return texture2D(blink2,p).rgb;return texture2D(blink3,p).rgb;}
+    vec3 scene(int id,float seconds,vec2 screen){
+      vec2 p;
+      if(portrait>.5){
+        if(id==0)p=vec2(.645+(screen.x-.5)*.4444,screen.y);
+        else p=vec2(.5+(screen.x-.5)*.8889,screen.y);
+      } else {
+        if(id==0)p=vec2(screen.x,(screen.y-.5)*.84375+.5);
+        else p=vec2((screen.x-.47)/.54,(screen.y+.075)/1.28);
+      }
+      // A steady dolly, never an oscillating pan or camera shake.
+      float dolly=1.+.018*smoothstep(0.,5.8,seconds);
+      p=(p-vec2(.55,.42))/dolly+vec2(.55,.42);
+      float life=smoothstep(.65,4.4,seconds);
+      vec2 moving=p;
+      // Only fabric and loose hair deform; the background and face stay anchored.
+      float fabric=smoothstep(.5,.85,p.y)*(1.-smoothstep(.9,1.,p.y));
+      float hair=ellipse(p, id==0?vec2(.82,.27):vec2(.77,.25),vec2(.13,.24));
+      moving.y += .0018*sin(seconds*1.5)*fabric*life;
+      moving.x += .0011*sin(seconds*1.4+p.y*12.)*hair*life;
+      vec3 stone=artSample(id,clamp(p,0.,1.));
+      vec3 living=liveSample(id,clamp(moving,0.,1.));
+      vec2 eye=id==0?vec2(.539,.223):id==1?vec2(.453,.272):id==2?vec2(.676,.276):vec2(.465,.191);
+      vec2 eyeRadius=id==1?vec2(.125,.075):vec2(.085,.063);
+      float eyeMask=ellipse(moving,eye,eyeRadius);
+      if(id==0)eyeMask=max(eyeMask,ellipse(moving,vec2(.477,.242),vec2(.031,.04)));
+      float blink=smoothstep(4.85,4.96,seconds)*(1.-smoothstep(5.03,5.22,seconds));
+      living=mix(living,blinkSample(id,clamp(moving,0.,1.)),eyeMask*blink);
+      // Flowing material reveal: small feather prevents double facial features.
+      float field=.24*p.x+.58*(1.-p.y)+.18*grainField(p*5.);
+      float front=mix(-.2,1.2,life);
+      float reveal=smoothstep(field-.065,field+.065,front);
+      vec3 color=mix(stone,living,reveal);
+      float edge=exp(-pow((field-front)/.042,2.))*sin(life*3.14159265);
+      color+=vec3(.075,.048,.012)*edge;
+      // A soft travelling reflection follows the existing jewellery, never a star sparkle.
+      float jewels=0.;
+      if(id==0)jewels=max(ellipse(p,vec2(.708,.337),vec2(.035,.08)),ellipse(p,vec2(.69,.75),vec2(.17,.09)));
+      if(id==3)jewels=max(ellipse(p,vec2(.455,.675),vec2(.035,.045)),ellipse(p,vec2(.33,.804),vec2(.035,.045)));
+      float reflection=exp(-pow((p.x+.16*p.y-(.25+seconds*.11))/.025,2.));
+      color+=vec3(.13,.10,.055)*jewels*reflection;
+      if(portrait<.5 && id!=0){
+        vec3 ground=id==1?vec3(.095,.071,.040):id==2?vec3(.09,.041,.031):vec3(.035,.075,.077);
+        float paper=.92+.08*grainField(screen*vec2(8.,5.));
+        color=mix(ground*paper,color,smoothstep(.43,.57,screen.x));
+      }
+      float vignette=1.-.18*smoothstep(.36,.8,length((screen-.5)*vec2(1.,.8)));
+      color*=vignette;
+      return color;
+    }
+    void main(){
+      float t=mod(time,28.);int id=int(floor(t/7.));float local=mod(t,7.);
+      int next=id==3?0:id+1;
+      vec3 a=scene(id,local,uv);vec3 b=scene(next,0.,uv);
+      float dissolve=smoothstep(5.8,7.,local);
+      float boundary=.72*(1.-uv.x)+.18*uv.y+.1*grainField(uv*3.);
+      float wipe=smoothstep(boundary-.18,boundary+.18,mix(-.3,1.3,dissolve));
+      vec3 color=mix(a,b,wipe);
+      float veil=sin(dissolve*3.14159265)*exp(-pow((boundary-mix(-.3,1.3,dissolve))/.23,2.));
+      color=mix(color,vec3(.24,.17,.075),veil*.11);
+      gl_FragColor=vec4(color,1.);
+    }`;
+  function compile(type, source) {
+    const shader=gl.createShader(type);gl.shaderSource(shader,source);gl.compileShader(shader);
+    if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(shader));return shader;
+  }
+  const program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program));
+  gl.useProgram(program);
+  const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+  for(let i=0;i<images.length;i++){
+    const img=new Image();img.src=images[i].data;await img.decode();
+    gl.activeTexture(gl.TEXTURE0+i);const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img);gl.uniform1i(gl.getUniformLocation(program,images[i].name),i);
+  }
+  gl.uniform1f(gl.getUniformLocation(program,'portrait'),width<height?1:0);
+  gl.viewport(0,0,width,height);
+  const time=gl.getUniformLocation(program,'time');
+  window.renderFrame=(seconds,png=false)=>{gl.uniform1f(time,seconds);gl.drawArrays(gl.TRIANGLES,0,6);return canvas.toDataURL(png?'image/png':'image/jpeg',.95).split(',')[1];};
+};
+</script></html>

@@ -7,8 +7,11 @@ import { ProductViewer3D } from "@/src/components/products/product-viewer-3d";
 import { formatMoney } from "@/src/lib/format";
 import { storefrontConfig } from "@/src/lib/shopify/config";
 import type { Product } from "@/src/lib/shopify/types";
+import { eras, eraHref } from "@/src/config/eras";
 
 export function ProductDetails({ product }: { product: Product }) {
+  const era = storefrontConfig.isMockShop ? eras.find((entry) => entry.demoProductHandles.includes(product.handle)) : undefined;
+  const upcoming = era?.status === "upcoming";
   const images = product.images.length > 0
     ? product.images
     : product.featuredImage ? [product.featuredImage] : [];
@@ -41,15 +44,14 @@ export function ProductDetails({ product }: { product: Product }) {
         </div>
 
         <section className="product-information" aria-labelledby="product-title">
-          <p className="eyebrow">{brand.collectionLabel} · {product.availableForSale ? "Pieza de colección" : "No disponible"}</p>
+          <p className="eyebrow">{era ? <Link href={eraHref(era)}>{era.title}</Link> : brand.name} · {upcoming ? "Adelanto de colección" : product.availableForSale ? "Pieza de colección" : "No disponible"}</p>
           <h1 id="product-title" className="product-title">{product.title}</h1>
-          <p className="product-origin">Civilización y época · pendiente de documentar</p>
-          <p className="product-price">{formatMoney(product.price)}</p>
+          {!upcoming && <p className="product-price">{formatMoney(product.price)}</p>}
           <div className="product-story">
             <p className="eyebrow">El relato</p>
             <p className="product-description">{product.description}</p>
           </div>
-          <ProductPurchasePanel product={product} />
+          {upcoming && era ? <div className="era-product-notice"><p>Esta pieza forma parte de la selección propuesta para {era.title}. El capítulo todavía no está disponible.</p><Link href={eraHref(era)}>Explorar el adelanto</Link></div> : <ProductPurchasePanel product={product} />}
           <div className="product-facts">
             <p className="eyebrow">Detalles de la pieza</p>
             <p>Material, acabado, medidas y cuidados: información por confirmar con el proveedor.</p>

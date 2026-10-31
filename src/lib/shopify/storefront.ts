@@ -8,6 +8,7 @@ import {
   CART_LINES_REMOVE_MUTATION,
   CART_LINES_UPDATE_MUTATION,
   CART_QUERY,
+  CATALOG_QUERY,
   COLLECTION_QUERY,
   FEATURED_COLLECTION_QUERY,
   HOME_COLLECTIONS_QUERY,
@@ -15,6 +16,27 @@ import {
   SITEMAP_QUERY,
 } from "@/src/lib/shopify/queries";
 import type { Cart, Collection, Product, ProductSortKey } from "@/src/lib/shopify/types";
+import { storefrontConfig } from "@/src/lib/shopify/config";
+import { eras } from "@/src/config/eras";
+
+export async function getAvailableCatalog(): Promise<Product[]> {
+  type CatalogPage = { products: { nodes: RawProduct[]; pageInfo: { hasNextPage: boolean; endCursor: string | null } } };
+  const products = new Map<string, Product>();
+  const upcoming = new Set(eras.filter((era) => era.status === "upcoming").flatMap((era) => era.demoProductHandles));
+  let cursor: string | null = null;
+  do {
+    const page: CatalogPage = await shopifyFetch<CatalogPage>(CATALOG_QUERY, { cursor });
+    for (const raw of page.products.nodes) {
+      if (!raw.availableForSale) continue;
+      if (storefrontConfig.isMockShop && (upcoming.has(raw.handle) || raw.handle.includes("watch"))) continue;
+      products.set(raw.id, mapProduct(raw));
+    }
+    const nextCursor = page.products.pageInfo.endCursor;
+    if (!page.products.pageInfo.hasNextPage || !nextCursor || nextCursor === cursor) break;
+    cursor = nextCursor;
+  } while (cursor);
+  return [...products.values()];
+}
 
 export async function getFeaturedCollection(): Promise<Collection | null> {
   const data = await shopifyFetch<{ collections: { nodes: RawCollection[] } }>(FEATURED_COLLECTION_QUERY);

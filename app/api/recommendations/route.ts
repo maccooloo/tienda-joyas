@@ -1,9 +1,9 @@
-import { getHomeCollections } from "@/src/lib/shopify/storefront";
+import { currentEra } from "@/src/config/eras";
+import { getEraProducts } from "@/src/lib/era-products";
 
 export async function GET() {
   try {
-    const collections = await getHomeCollections();
-    const products = [...new Map(collections.flatMap((collection) => collection.products).map((product) => [product.id, product])).values()]
+    const products = (await getEraProducts(currentEra))
       .filter((product) => product.availableForSale && product.variants.some((variant) => variant.availableForSale))
       .slice(0, 8)
       .map(({ id, handle, title, featuredImage, variants }) => ({ id, handle, title, featuredImage, variants }));

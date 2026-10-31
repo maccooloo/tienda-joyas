@@ -18,6 +18,10 @@ La navegación editorial pasa a capítulos: I Grecia (actual), II Egipto, III Ro
 
 Se mantienen blanco #ffffff, tinta #242824, oro #c9a24f, oro profundo #735a2b y champán #ebddb8. Garamond clásica y dorada. Composición: campaña griega / navegación por capítulos / selección actual / cuatro imágenes por época / relato. El acento distintivo sigue siendo el diálogo entre arte y joyas. Grecia, Egipto y Roma tienen imágenes editoriales imaginadas; Botticelli acompaña Renacimiento. Ingres permanece en el manifiesto y no se clasifica como renacentista. Los capítulos futuros no ofrecen productos ficticios ni fechas de lanzamiento.
 
+La selección de demostración se reparte de forma exclusiva: Grecia tiene collar ovalado, aros con relieve y pulsera de charms; Roma propone cadena compacta y aros trenzados; Renacimiento propone anillo floral y anillos apilables. Egipto tiene un estudio visual nuevo de escarabajo y loto, sin SKU ni precio. No se repite ningún producto entre capítulos. Inicio y recomendaciones usan únicamente el capítulo actual. Las páginas y tarjetas de las futuras propuestas no ofrecen compra. Al conectar una tienda real, cada capítulo usa su colección específica de Shopify. Las composiciones y prompts están en `era-assets.json`.
+
+Revisión del recorrido por épocas: comprobadas las cuatro páginas, imágenes sin errores, navegación de escritorio y táctil, ausencia de desbordamiento a 320 px, selección exclusiva de siete piezas repartidas entre Grecia/Roma/Renacimiento, estudio independiente de Egipto, recomendaciones limitadas a Grecia y adición al carrito. Los adelantos no muestran formulario de compra ni ofertas en datos estructurados. Vídeo griego: bucle animado de 12 segundos, H.264 a 1600×900, sin audio y con pausa.
+
 ### Ajuste de tipografía y dorado
 
 El usuario pide una letra menos moderna y mayor presencia dorada. Títulos en EB Garamond con cursiva de trazo clásico en la campaña y el manifiesto; nombres de piezas y menús en su variante romana. GFS Didot se mantiene en el wordmark, Inter en precios y formularios. Blanco #ffffff para catálogo, tinta #242824, oro #c9a24f para botones y filetes, oro profundo #735a2b para texto sobre blanco, oro claro #e3c77f y champán #ebddb8 sobre pintura oscurecida.
@@ -56,3 +60,11 @@ Los antiguos recursos de stock se han retirado. Las imágenes y vídeos artísti
 ## Verificación final
 
 `npm run lint` y `npm run build` correctos. Edge headless a 1440×1000, 390×844 y 320×640: apertura por hover y clic, Escape y devolución del foco, navegación táctil, vídeo con pausa y respeto de movimiento reducido. Flujo contra Mock Shop: añadir producto, rotación automática y pausa por interacción, seleccionar variante recomendada, añadirla, excluirla de las sugerencias, recargar y conservar carrito, modificar cantidad y eliminar. Sin errores de navegador. Las capturas locales de revisión están en `out/design-review/final-*.png` (directorio ignorado por Git). No se ha realizado ningún pago ni despliegue.
+## Refinamiento: película, navegación y cierre
+
+La portada narra una transformación entre Grecia, Egipto, Roma y Renacimiento. Se sustituye el zoom oscilante por una composición de materiales, luz y transiciones con versiones vivas de las obras. Es animación compuesta, no vídeo generativo de movimiento humano.
+
+Tokens: blanco #ffffff; noche oliva #242824; piedra #e6e0d4; dorado #c9a24f; oro profundo #735a2b; luz #e3c77f. Solo dos familias: GFS Didot recta para marca y grandes titulares, Inter regular para navegación, fichas y texto. Se retiran Garamond y las cursivas de interfaz.
+
+Estructura: `cabecera → película → piezas → épocas → relato → ayuda → cierre oscuro`. Shop ofrece un catálogo continuo y categorías de joya; Colecciones muestra exclusivamente los cuatro capítulos. El footer comparte márgenes, agrupa enlaces y remata con el wordmark sobre noche oliva. La propuesta evita repetir la misma lista en ambos menús y evita el footer de tres columnas dispersas que se ha rechazado.
+

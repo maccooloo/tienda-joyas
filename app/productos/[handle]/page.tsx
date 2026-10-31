@@ -4,6 +4,8 @@ import { ProductDetails } from "@/src/components/products/product-details";
 import { brand } from "@/src/config/brand";
 import { safeJsonLd } from "@/src/lib/seo";
 import { getProduct } from "@/src/lib/shopify/storefront";
+import { storefrontConfig } from "@/src/lib/shopify/config";
+import { eras } from "@/src/config/eras";
 
 export async function generateMetadata({ params }: PageProps<"/productos/[handle]">): Promise<Metadata> {
   const { handle } = await params;
@@ -27,6 +29,7 @@ export default async function ProductPage({ params }: PageProps<"/productos/[han
   const { handle } = await params;
   const product = await getProduct(handle).catch(() => null);
   if (!product) notFound();
+  const upcoming = storefrontConfig.isMockShop && eras.some((era) => era.status === "upcoming" && era.demoProductHandles.includes(product.handle));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -35,7 +38,7 @@ export default async function ProductPage({ params }: PageProps<"/productos/[han
     description: product.description,
     image: product.images.map((image) => image.url),
     brand: { "@type": "Brand", name: brand.name },
-    offers: product.variants.map((variant) => ({
+    offers: upcoming ? undefined : product.variants.map((variant) => ({
       "@type": "Offer",
       priceCurrency: variant.price.currencyCode,
       price: variant.price.amount,

@@ -3,14 +3,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { brand } from "@/src/config/brand";
-import type { NavigationCollection } from "@/src/lib/editorial";
+import { currentEra, eras, eraHref } from "@/src/config/eras";
+import { catalogCategories } from "@/src/config/catalog";
 import { CartButton } from "@/src/components/site/cart-button";
 
 type Panel = "shop" | "collections" | "brand";
 const panelNames = { shop: "Shop", collections: "Colecciones", brand: "La marca" };
 
-export function SiteHeader({ isMockShop, collections = [] }: { isMockShop: boolean; collections?: NavigationCollection[] }) {
+export function SiteHeader({ isMockShop }: { isMockShop: boolean }) {
+  const pathname = usePathname();
+  const isFilmPage = pathname === "/" || pathname === "/manifiesto";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [panel, setPanel] = useState<Panel | null>(null);
@@ -32,7 +36,7 @@ export function SiteHeader({ isMockShop, collections = [] }: { isMockShop: boole
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });
     return () => { window.removeEventListener("scroll", updateScrollState); cancelClose(); };
-  }, [cancelClose]);
+  }, [cancelClose, pathname]);
 
   const isOpen = panel !== null;
   useEffect(() => {
@@ -73,7 +77,7 @@ export function SiteHeader({ isMockShop, collections = [] }: { isMockShop: boole
 
   return <>
     {isMockShop && <div className="demo-notice">Catálogo de demostración · Compras ficticias</div>}
-    <header className={`site-header ${isScrolled ? "site-header-scrolled" : ""} ${isHidden && !isOpen ? "site-header-hidden" : ""} ${isMockShop && !isScrolled ? "site-header-demo" : ""} ${isOpen ? "site-header-menu-open" : ""}`} onPointerLeave={scheduleClose}>
+    <header className={`site-header ${isFilmPage ? "site-header-film" : ""} ${isScrolled ? "site-header-scrolled" : ""} ${isHidden && !isOpen ? "site-header-hidden" : ""} ${isMockShop && !isScrolled ? "site-header-demo" : ""} ${isOpen ? "site-header-menu-open" : ""}`} onPointerLeave={scheduleClose}>
       <Link className="brand-mark" href="/" aria-label={`${brand.name}, inicio`} onClick={close}>{brand.wordmark}</Link>
       <nav className="desktop-nav" aria-label="Navegación principal">
         {(["shop", "collections", "brand"] as const).map((item) => <button key={item} className={`shop-menu-trigger ${item !== "shop" ? "desktop-only-trigger" : ""}`} type="button" aria-expanded={panel === item} aria-controls={panel === item ? "shop-menu" : undefined}
@@ -87,18 +91,29 @@ export function SiteHeader({ isMockShop, collections = [] }: { isMockShop: boole
       <div ref={menuRef} id="shop-menu" className="shop-menu-panel" role={modal ? "dialog" : undefined} aria-modal={modal || undefined} aria-label={panelNames[panel]} onPointerEnter={cancelClose} onPointerLeave={scheduleClose}
         onBlur={(event) => { if (!modal && !event.currentTarget.contains(event.relatedTarget)) close(); }}>
         <div className="shop-menu-heading"><span>{panelNames[panel]}</span><button type="button" onClick={close}>Cerrar <span aria-hidden="true">×</span></button></div>
+        <div className="mobile-menu-sections" aria-label="Secciones del menú">
+          {(["shop", "collections", "brand"] as const).map((item) => <button type="button" key={item} aria-pressed={panel === item} onClick={() => setPanel(item)}>{panelNames[item]}</button>)}
+        </div>
         <nav aria-label="Explorar la tienda">
-          {panel !== "brand" && <>
-            <Link href="/#coleccion" onClick={close}>Todas las piezas</Link>
-            {collections.map((collection) => <Link key={collection.href} href={collection.href} onClick={close}>{collection.title}</Link>)}
-            {!collections.length && <Link href="/#colecciones" onClick={close}>Las colecciones</Link>}
+          {panel === "shop" && <>
+            <Link href="/shop" className="menu-all-pieces" onClick={close}>Todas las piezas disponibles</Link>
+            {catalogCategories.map((category) => <Link href={`/shop?tipo=${category.slug}`} key={category.slug} onClick={close}>{category.title}</Link>)}
           </>}
-          <Link className="menu-secondary-link" href="/manifiesto" onClick={close}>El universo {brand.name}</Link>
-          <Link href="/#ayuda" onClick={close}>Ayuda</Link>
+          {panel === "collections" && <>
+            {eras.map((era) => <Link key={era.slug} href={eraHref(era)} className="menu-era-link" onClick={close}><span>{era.title}</span><small>{era.status === "current" ? "Colección actual" : "Por venir"}</small></Link>)}
+          </>}
+          {panel === "brand" && <>
+            <Link href="/manifiesto" onClick={close}>El universo {brand.name}</Link>
+            <Link href="/manifiesto#manifiesto" onClick={close}>Nuestro manifiesto</Link>
+            <Link href="/#ayuda" onClick={close}>Ayuda y cuidados</Link>
+          </>}
         </nav>
-        <div className="menu-editorials">
-          {(collections.length ? collections.slice(0, 2) : [{ href: "/manifiesto", title: "Arte para llevar", image: "/images/art-botticelli.webp" }]).map((collection) => <Link className="shop-menu-feature" href={collection.href} key={collection.href} onClick={close}>
-            <span>{collection.title}</span><div>{collection.image && <Image src={collection.image} alt="" fill sizes="(max-width: 760px) 40vw, 230px" />}</div>
+        <div className={`menu-editorials ${panel === "shop" ? "menu-products" : ""}`}>
+          {panel === "shop" ? <>
+            <Link className="shop-menu-feature" href="/shop?tipo=collares" onClick={close}><span>Collares</span><div><Image src="/images/products/collar-de-cadena-bano-de-oro.webp" alt="" fill sizes="230px" /></div></Link>
+            <Link className="shop-menu-feature" href="/shop?tipo=pendientes" onClick={close}><span>Pendientes</span><div><Image src="/images/products/large-waterproof-gold-plated-hoop-earrings.webp" alt="" fill sizes="230px" /></div></Link>
+          </> : panel === "brand" ? <Link className="shop-menu-feature menu-brand-feature" href="/manifiesto" onClick={close}><span>El arte sigue vivo</span><div><Image src="/images/eras/renacimiento.webp" alt="" fill sizes="480px" /></div></Link> : [currentEra, eras[1]].map((era) => <Link className="shop-menu-feature" href={eraHref(era)} key={era.slug} onClick={close}>
+            <span>{era.title}</span><div><Image src={era.image} alt="" fill sizes="(max-width: 760px) 40vw, 230px" /></div>
           </Link>)}
         </div>
       </div>

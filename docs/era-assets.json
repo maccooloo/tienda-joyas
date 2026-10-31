@@ -1,0 +1,50 @@
+{
+  "note": "Imágenes artísticas generadas con IA. Esculturas imaginadas, no piezas de museo. Egipto: propuesta de diseño no comercializada.",
+  "assets": [
+    {
+      "key": "grecia",
+      "prompt": "Create a refined fine-art jewelry campaign photograph, landscape 3:2. A beautiful sculpted ivory marble bust of an adult woman inspired by classical Greek sculpture, at the RIGHT two thirds of the image, three-quarter profile facing left, softly waved hair loosely tied back, graceful intact nose, serene face, worn stone texture, draped shoulder. She wears the EXACT oval gold chain necklace from reference image 1 and one ridged gold hoop earring from reference image 2 at a realistic small scale. Preserve product designs, subtle metal warm reflections. This is an imagined contemporary sculptural styling, not a reproduction of a specific museum artifact. Left third empty very dark muted olive-charcoal wall for text, no columns or ruins or fantasy props. Warm directional afternoon light, subtle fine film grain, authentic marble texture, intimate antique atelier mood, delicate editorial photography. No letters, graphics, logos, text or frame. The bust should fit in a vertical crop on the right too, include top of head through draped chest.",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-026edacb-09b8-473d-9d03-093f204e8fe6.png",
+      "output": "public/images/eras/grecia.webp",
+      "references": [
+        "public/images/products/collar-de-cadena-bano-de-oro.webp",
+        "public/images/products/large-waterproof-gold-plated-hoop-earrings.webp"
+      ]
+    },
+    {
+      "key": "egipto",
+      "prompt": "Create a refined fine-art mood photograph for an upcoming ancient Egypt inspired jewelry collection. Portrait 3:4. Close-up of an imagined ancient Egyptian sandstone female sculpted head and upper shoulders in profile, facing left, graceful stylized almond eye, elegant smooth broad hairstyle, tiny traces of faded ochre pigment, subtle carved lotus form on wall at lower left. Not a copy of any identifiable museum artifact. Cropped intimate art photography, warm honey sandstone against dark cocoa shadow, gently lit face occupying right two thirds, airy quiet composition, nuanced stone texture and soft light. No pyramids, no fantasy, no shiny pharaoh costume, no gold mask, no costume jewelry, no hieroglyphic text, no lettering, no frame. This is an artistic preview, calm and delicate luxury with aged material, believable physical sculpture.",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-8a84fdbf-7697-4d2b-9433-63bd773cf703.png",
+      "output": "public/images/eras/egipto.webp"
+    },
+    {
+      "key": "roma",
+      "prompt": "Create a refined fine-art mood photograph for an upcoming ancient Rome inspired jewelry collection. Portrait 3:4. Intimate close crop of an imagined ancient Roman marble portrait bust of an adult woman, distinct tightly coiled sculpted curls gathered high, gentle profile looking right, sculpted draped fabric at shoulders and chest, sculptural detail rather than modern human. White marble with subtle old warm patina; muted wine-brown wall in shadow. A small oxidized brass round medallion lying at bottom edge of the stone plinth as a quiet abstract styling detail, no inscription. Rich soft chiaroscuro, old atelier photography, fine texture, sober and delicate. Composition centered and close, full head visible, no ruins, columns, battle imagery, crowns, modern portrait skin, lettering, logos or frames. Invented artistic sculpture, no claim to be a real historical artifact.",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-49e3b473-25ff-4160-a594-b16be5a666db.png",
+      "output": "public/images/eras/roma.webp"
+    },
+    {
+      "key": "egipto-designs",
+      "prompt": "Create a jewelry design concept study for an upcoming ancient Egypt inspired collection, a single landscape 3:2 editorial studio still life on pure white. Two DISTINCT delicate gold-toned jewelry concepts arranged with plenty of white negative space: left a fine chain necklace in a closed loose oval with a SMALL sculpted scarab pendant set with a muted deep turquoise oval; right a pair of light drop earrings shaped like stylized open lotus petals with a tiny ivory enamel accent. Refined contemporary wearable jewelry with subtle Egyptian references, not costume jewelry, restrained realistic scale, fine realistic craftsmanship, satin and polished gold-toned metal, soft diffuse shadow, catalog photo aesthetic. Necklace and earrings clearly separated, no overlap. No hands, no bust, no stone props, no labels, no text, no numbers, no logos, no gold coins, no third design. This is a fictional product design proposal, not a depiction of an existing product.",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-69f74d92-7f8d-480c-b039-2e44e222bd04.png",
+      "output": "public/images/eras/egipto-designs.webp"
+    },
+    {
+      "key": "renacimiento",
+      "source": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-a661a914-c66d-4443-b042-d6c5d844eacc.png",
+      "output": "public/images/eras/renacimiento.webp",
+      "prompt": "Edit image 1, our reinterpretation of a Botticelli workshop portrait, into a DISTINCT Renaissance jewelry chapter portrait. Keep her recognizable profile, blonde braids, coral silk dress, tempera painting texture and blue-green architectural background. REMOVE the gold chain necklace and REMOVE the hoop earring entirely: these belong to another collection. Extend composition down to include her two gracefully posed hands at chest level, one hand lightly resting above the other. Put the exact delicate seven-stone pink/lavender/pale-blue flower ring from reference image 2 on the upper hand's ring finger, and the exact four-band colored stone ring stack from reference image 3 on a finger of the lower hand. Realistic small ring scale and correct finger anatomy; clearly recognizable product designs with painterly texture. No other new jewelry, no necklace, no hoop earrings. Portrait 3:4 canvas showing head, shoulders and both ring-wearing hands. Refined historically inspired painted composition, soft fine detail, calm antique pigments. This is a creative reinterpretation, not an exact reproduction. No text, lettering, watermark, frame or labels.",
+      "references": [
+        "public/images/art-botticelli.webp",
+        "public/images/products/semi-precious-stone-ring.webp",
+        "public/images/products/radiance-stackable-rings-set-brushed-gold.webp"
+      ],
+      "originalArtwork": "https://commons.wikimedia.org/wiki/File:Botticelli_-_Portrait_of_a_Young_Woman,_probably_Simonetta_Vespucci.jpg"
+    }
+  ],
+  "video": {
+    "file": "public/videos/criseida-grecia.mp4",
+    "source": "public/images/eras/grecia.webp",
+    "description": "Animated 12-second slow camera loop; 1600x900, H.264, 24fps, no audio, faststart."
+  }
+}
