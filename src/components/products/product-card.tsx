@@ -4,8 +4,14 @@ import { BrandPlaceholder } from "@/src/components/brand/brand-placeholder";
 import { formatMoney } from "@/src/lib/format";
 import type { Product } from "@/src/lib/shopify/types";
 
+function isInUseImage(altText: string | null) {
+  return altText !== null && /\b(in use|en uso|wearing|worn|modelo|model)\b/i.test(altText);
+}
+
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
-  const alternateImage = product.images.find((image) => image.url !== product.featuredImage?.url);
+  const alternateImages = product.images.filter((image) => image.url !== product.featuredImage?.url);
+  const inUseImage = alternateImages.find((image) => isInUseImage(image.altText));
+  const alternateImage = inUseImage ?? alternateImages[0];
   return (
     <article className="product-card">
       <Link href={`/productos/${product.handle}`} className="product-card-link">
@@ -21,7 +27,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
             />
           ) : <BrandPlaceholder className="product-placeholder" label={product.title} />}
           {alternateImage && (
-            <Image className="product-alternate-image" src={alternateImage.url} alt="" fill
+            <Image className={`product-alternate-image${inUseImage ? " product-in-use-image" : ""}`} src={alternateImage.url} alt="" fill
               sizes="(max-width: 760px) 45vw, 25vw" loading="lazy" />
           )}
           {!product.availableForSale && <span className="product-badge">Agotado</span>}

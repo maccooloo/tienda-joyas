@@ -41,7 +41,7 @@ export const FEATURED_COLLECTION_QUERY = `
             id handle title description availableForSale
             priceRange { minVariantPrice { amount currencyCode } }
             featuredImage { url altText width height }
-            images(first: 3) { nodes { url altText width height } }
+            images(first: 12) { nodes { url altText width height } }
           }
         }
       }
@@ -60,7 +60,7 @@ export const HOME_COLLECTIONS_QUERY = `
             id handle title description availableForSale
             priceRange { minVariantPrice { amount currencyCode } }
             featuredImage { url altText width height }
-            images(first: 2) { nodes { url altText width height } }
+            images(first: 12) { nodes { url altText width height } }
             variants(first: 20) {
               nodes {
                 id title availableForSale quantityAvailable
@@ -89,7 +89,7 @@ export const COLLECTION_QUERY = `
           id handle title description availableForSale
           priceRange { minVariantPrice { amount currencyCode } }
           featuredImage { url altText width height }
-          images(first: 2) { nodes { url altText width height } }
+          images(first: 12) { nodes { url altText width height } }
         }
       }
     }

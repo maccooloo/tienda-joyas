@@ -56,6 +56,10 @@ function mapImage(image?: RawImage | null): ShopifyImage | null {
 export function mapProduct(raw: RawProduct): Product {
   const title = storefrontConfig.isMockShop ? demoProductTitles[raw.handle] ?? raw.title : raw.title;
   const packshot = demoImage(raw.handle, title);
+  const images = (raw.images?.nodes ?? []).flatMap((image) => {
+    const mapped = mapImage(image);
+    return mapped ? [mapped] : [];
+  });
   const variants: ProductVariant[] = (raw.variants?.nodes ?? []).map((variant) => ({
     id: variant.id,
     title: variant.title,
@@ -88,10 +92,9 @@ export function mapProduct(raw: RawProduct): Product {
     availableForSale: raw.availableForSale,
     price: raw.priceRange.minVariantPrice,
     featuredImage: packshot ?? mapImage(raw.featuredImage),
-    images: packshot ? [packshot] : (raw.images?.nodes ?? []).flatMap((image) => {
-      const mapped = mapImage(image);
-      return mapped ? [mapped] : [];
-    }),
+    images: packshot
+      ? [packshot, ...images.filter((image) => image.url !== raw.featuredImage?.url)]
+      : images,
     variants,
     media: packshot ? [{ type: "image", image: packshot }, ...media.filter((item) => item.type === "model3d")] : media,
   };
