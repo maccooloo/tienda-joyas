@@ -13,10 +13,10 @@ window.initializeFilm = async ({ width, height, images }) => {
     void main(){uv=vec2((position.x+1.)*.5,1.-(position.y+1.)*.5);gl_Position=vec4(position,0.,1.);}`;
   const fragment = `precision highp float;
     varying vec2 uv; uniform float time; uniform float portrait;
-    uniform sampler2D art0; uniform sampler2D live0; uniform sampler2D blink0;
-    uniform sampler2D art1; uniform sampler2D live1; uniform sampler2D blink1;
-    uniform sampler2D art2; uniform sampler2D live2; uniform sampler2D blink2;
-    uniform sampler2D art3; uniform sampler2D live3; uniform sampler2D blink3;
+    uniform sampler2D art0; uniform sampler2D live0;
+    uniform sampler2D art1; uniform sampler2D live1;
+    uniform sampler2D art2; uniform sampler2D live2;
+    uniform sampler2D art3; uniform sampler2D live3;
     float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
       return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
@@ -24,7 +24,6 @@ window.initializeFilm = async ({ width, height, images }) => {
     float ellipse(vec2 p,vec2 c,vec2 r){return 1.-smoothstep(.6,1.,length((p-c)/r));}
     vec3 artSample(int id,vec2 p){if(id==0)return texture2D(art0,p).rgb;if(id==1)return texture2D(art1,p).rgb;if(id==2)return texture2D(art2,p).rgb;return texture2D(art3,p).rgb;}
     vec3 liveSample(int id,vec2 p){if(id==0)return texture2D(live0,p).rgb;if(id==1)return texture2D(live1,p).rgb;if(id==2)return texture2D(live2,p).rgb;return texture2D(live3,p).rgb;}
-    vec3 blinkSample(int id,vec2 p){if(id==0)return texture2D(blink0,p).rgb;if(id==1)return texture2D(blink1,p).rgb;if(id==2)return texture2D(blink2,p).rgb;return texture2D(blink3,p).rgb;}
     vec3 scene(int id,float seconds,vec2 screen){
       vec2 p;
       if(portrait>.5){
@@ -46,12 +45,6 @@ window.initializeFilm = async ({ width, height, images }) => {
       moving.x += .0011*sin(seconds*1.4+p.y*12.)*hair*life;
       vec3 stone=artSample(id,clamp(p,0.,1.));
       vec3 living=liveSample(id,clamp(moving,0.,1.));
-      vec2 eye=id==0?vec2(.539,.223):id==1?vec2(.453,.272):id==2?vec2(.676,.276):vec2(.465,.191);
-      vec2 eyeRadius=id==1?vec2(.125,.075):vec2(.085,.063);
-      float eyeMask=ellipse(moving,eye,eyeRadius);
-      if(id==0)eyeMask=max(eyeMask,ellipse(moving,vec2(.477,.242),vec2(.031,.04)));
-      float blink=smoothstep(4.85,4.96,seconds)*(1.-smoothstep(5.03,5.22,seconds));
-      living=mix(living,blinkSample(id,clamp(moving,0.,1.)),eyeMask*blink);
       // Flowing material reveal: small feather prevents double facial features.
       float field=.24*p.x+.58*(1.-p.y)+.18*grainField(p*5.);
       float front=mix(-.2,1.2,life);

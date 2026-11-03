@@ -6,16 +6,16 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { createRequire } from 'node:module';
-const dependencies = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toolDirectory = process.env.FILM_TOOLS_DIR || path.join(os.tmpdir(), 'criseida-browser-review', 'node_modules');
-const { chromium } = await import(pathToFileURL(dependencies.resolve('playwright', { paths: [toolDirectory] })).href);
-const { default: ffmpeg } = await import(pathToFileURL(dependencies.resolve('ffmpeg-static', { paths: [toolDirectory] })).href);
+const tools = createRequire(path.join(toolDirectory, 'package.json'));
+const { chromium } = tools('playwright');
+const ffmpeg = tools('ffmpeg-static');
 const root = path.resolve(__dirname, '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/era-film-assets.json'), 'utf8'));
 const output = path.join(root, 'out', 'era-film');
 fs.mkdirSync(output, { recursive: true });
-const images = manifest.chapters.flatMap((chapter, index) => ['art', 'living', 'blink'].map((kind) => ({
+const images = manifest.chapters.flatMap((chapter, index) => ['art', 'living'].map((kind) => ({
   name: `${kind === 'living' ? 'live' : kind}${index}`,
   data: `data:image/webp;base64,${fs.readFileSync(path.join(root, chapter[kind])).toString('base64')}`,
 })));
@@ -28,11 +28,11 @@ async function render(browser, mobile, stills) {
   await page.goto(pathToFileURL(path.join(__dirname, 'era-film.html')).href);
   await page.evaluate((settings) => window.initializeFilm(settings), { width, height, images });
   if (stills) {
-    for (const t of [0, 2.8, 4.6, 5, 6.4, 7, 11.6, 14, 18.6, 21, 25.6, 27.95]) {
+    for (const t of [0, 2.8, 4.6, 4.9, 5, 6.4, 7, 11.6, 11.9, 14, 18.6, 18.9, 21, 25.6, 25.9, 27.95]) {
       const data = await page.evaluate((seconds) => window.renderFrame(seconds, true), t);
       fs.writeFileSync(path.join(output, `${name}-${t}.png`), Buffer.from(data, 'base64'));
     }
-    console.log(`${name}: 12 proof frames saved`);
+    console.log(`${name}: 16 proof frames saved`);
   } else {
     const destination = path.join(root, mobile ? manifest.outputs[1] : manifest.outputs[0]);
     const encoder = spawn(ffmpeg, ['-y', '-hide_banner', '-loglevel', 'error', '-f', 'image2pipe', '-vcodec', 'mjpeg', '-r', String(manifest.fps), '-i', 'pipe:0', '-an', '-c:v', 'libx264', '-preset', 'medium', '-crf', '23', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', destination], { windowsHide: true });
