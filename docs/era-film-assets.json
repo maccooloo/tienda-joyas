@@ -1,5 +1,5 @@
 {
-  "method": "Built-in imagegen for material-replacement and eyelid keyframes; deterministic layered WebGL composition and FFmpeg encoding, not generative motion video.",
+  "method": "Built-in imagegen for material-replacement keyframes; deterministic layered WebGL composition and FFmpeg encoding. Only open-eye living keyframes are rendered; archived blink references are not used in the videos.",
   "durationSeconds": 28,
   "fps": 24,
   "chapters": [
