@@ -3,6 +3,8 @@ import Link from "next/link";
 import { BrandPlaceholder } from "@/src/components/brand/brand-placeholder";
 import { formatMoney } from "@/src/lib/format";
 import type { Product } from "@/src/lib/shopify/types";
+import { eras, eraHref } from "@/src/config/eras";
+import { storefrontConfig } from "@/src/lib/shopify/config";
 
 function isInUseImage(altText: string | null) {
   return altText !== null && /\b(in use|en uso|wearing|worn|modelo|model)\b/i.test(altText);
@@ -12,9 +14,10 @@ export function ProductCard({ product, priority = false }: { product: Product; p
   const alternateImages = product.images.filter((image) => image.url !== product.featuredImage?.url);
   const inUseImage = alternateImages.find((image) => isInUseImage(image.altText));
   const alternateImage = inUseImage ?? alternateImages[0];
+  const upcoming = storefrontConfig.isMockShop ? eras.find((era) => era.status === "upcoming" && era.demoProductHandles.includes(product.handle)) : undefined;
   return (
     <article className="product-card">
-      <Link href={`/productos/${product.handle}`} className="product-card-link">
+      <Link href={upcoming ? eraHref(upcoming) : `/productos/${product.handle}`} className="product-card-link">
         <div className="product-card-image">
           {product.featuredImage ? (
             <Image
@@ -35,7 +38,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
         </div>
         <div className="product-card-copy">
           <h3>{product.title}</h3>
-          <span>{formatMoney(product.price)}</span>
+          <span>{upcoming ? `${upcoming.title} · Adelanto` : formatMoney(product.price)}</span>
         </div>
       </Link>
     </article>

@@ -1,0 +1,51 @@
+{
+  "method": "Built-in imagegen for material-replacement and eyelid keyframes; deterministic layered WebGL composition and FFmpeg encoding, not generative motion video.",
+  "durationSeconds": 28,
+  "fps": 24,
+  "chapters": [
+    {
+      "era": "grecia",
+      "art": "public/images/eras/grecia.webp",
+      "livingSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-3374b678-2c8d-4dad-a9b0-9f55ceb2d1ce.png",
+      "blinkSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-f5202101-4437-45ce-b0ab-bfcd45a1535b.png",
+      "living": "public/images/film/grecia-living.webp",
+      "blink": "public/images/film/grecia-blink.webp",
+      "prompt": "This is a precision material-replacement edit for a cinematic before/after transformation. KEEP THE EXACT SOURCE COMPOSITION, camera angle, framing, face silhouette, eye position, nose position, shoulders, lighting direction and background. Do not move or resize anything. Transform only the artwork's material into its lifelike human incarnation. A real adult woman, cinematic photographic natural skin, very subtle pores, no heavy makeup, timeless museum luxury jewelry campaign, calm expression, same gaze direction. It must align as closely as possible with the source for a seamless animated reveal. No text, no watermark, no panels. The ivory Greek marble statue becomes an adult living woman with warm olive skin, soft brown hair in the exact sculpted hairstyle, a real ivory linen drape. Keep the exact gold oval chain necklace and multi-ridged gold hoop unchanged, same scale and positions. Keep the dark olive background and wide landscape canvas exactly as source. Do not crop.",
+      "blinkPrompt": "Precision animation keyframe edit. Edit ONLY the eyelids of the woman in this reference: her visible eye is now naturally gently fully closed mid-blink, with eyelashes lowered. Preserve absolutely every other feature, pose, hair, jewelry, clothes, lighting, framing, face shape, background and image dimensions. No head movement. No smiling. Same photographic image, exactly aligned with source. This is an alternate blink frame, NOT a new composition. Do not crop. No text."
+    },
+    {
+      "era": "egipto",
+      "art": "public/images/eras/egipto.webp",
+      "livingSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-280e21ee-0638-450c-a51c-df75ad578947.png",
+      "blinkSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-d13df8ca-1888-405a-bfe3-b5d239e7f9bb.png",
+      "living": "public/images/film/egipto-living.webp",
+      "blink": "public/images/film/egipto-blink.webp",
+      "prompt": "This is a precision material-replacement edit for a cinematic before/after transformation. KEEP THE EXACT SOURCE COMPOSITION, camera angle, framing, face silhouette, eye position, nose position, shoulders, lighting direction and background. Do not move or resize anything. Transform only the artwork's material into its lifelike human incarnation. A real adult woman, cinematic photographic natural skin, very subtle pores, no heavy makeup, timeless museum luxury jewelry campaign, calm expression, same gaze direction. It must align as closely as possible with the source for a seamless animated reveal. No text, no watermark, no panels. The Egyptian sandstone female portrait becomes a living adult Egyptian woman with warm deep brown skin and dark brown eyes; convert the stone headdress to a dark linen headdress with a narrow muted gold edge. Keep profile looking left, exact nose and ear silhouette, same shadowy sandstone background. No added jewelry. Same portrait canvas.",
+      "blinkPrompt": "Precision animation keyframe edit. Edit ONLY the eyelids of the woman in this reference: her visible eye is now naturally gently fully closed mid-blink, with eyelashes lowered. Preserve absolutely every other feature, pose, hair, jewelry, clothes, lighting, framing, face shape, background and image dimensions. No head movement. No smiling. Same photographic image, exactly aligned with source. This is an alternate blink frame, NOT a new composition. Do not crop. No text."
+    },
+    {
+      "era": "roma",
+      "art": "public/images/eras/roma.webp",
+      "livingSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-d01abda7-9c39-48f0-b367-beb061d0e856.png",
+      "blinkSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-cc9e17d9-a9d2-43f4-9e11-d8fa8c2018e0.png",
+      "living": "public/images/film/roma-living.webp",
+      "blink": "public/images/film/roma-blink.webp",
+      "prompt": "This is a precision material-replacement edit for a cinematic before/after transformation. KEEP THE EXACT SOURCE COMPOSITION, camera angle, framing, face silhouette, eye position, nose position, shoulders, lighting direction and background. Do not move or resize anything. Transform only the artwork's material into its lifelike human incarnation. A real adult woman, cinematic photographic natural skin, very subtle pores, no heavy makeup, timeless museum luxury jewelry campaign, calm expression, same gaze direction. It must align as closely as possible with the source for a seamless animated reveal. No text, no watermark, no panels. The Roman marble bust becomes a living adult woman with soft medium olive skin, deep brown eyes, dark brown curls in the exact sculpted arrangement, same cream linen drapery. The plinth remains stone, the coin on it remains unchanged. Exact right-looking profile and burgundy background. No added jewelry. Same portrait canvas.",
+      "blinkPrompt": "Precision animation keyframe edit. Edit ONLY the eyelids of the woman in this reference: her visible eye is now naturally gently fully closed mid-blink, with eyelashes lowered. Preserve absolutely every other feature, pose, hair, jewelry, clothes, lighting, framing, face shape, background and image dimensions. No head movement. No smiling. Same photographic image, exactly aligned with source. This is an alternate blink frame, NOT a new composition. Do not crop. No text."
+    },
+    {
+      "era": "renacimiento",
+      "art": "public/images/eras/renacimiento.webp",
+      "livingSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-a17eb018-5599-449f-9098-a8484ba6a8ee.png",
+      "blinkSource": "C:\\Users\\34629\\.codex\\generated_images\\01a18893-27a4-78f2-9340-e160d2ba8b88\\exec-004b3581-130e-4823-a739-910342dfc165.png",
+      "living": "public/images/film/renacimiento-living.webp",
+      "blink": "public/images/film/renacimiento-blink.webp",
+      "prompt": "This is a precision material-replacement edit for a cinematic before/after transformation. KEEP THE EXACT SOURCE COMPOSITION, camera angle, framing, face silhouette, eye position, nose position, shoulders, lighting direction and background. Do not move or resize anything. Transform only the artwork's material into its lifelike human incarnation. A real adult woman, cinematic photographic natural skin, very subtle pores, no heavy makeup, timeless museum luxury jewelry campaign, calm expression, same gaze direction. It must align as closely as possible with the source for a seamless animated reveal. No text, no watermark, no panels. The Renaissance painted woman becomes a living adult woman photographed in the exact pose, warm pale skin, strawberry blonde braids with same pearls, coral red silk dress, same hands in exactly same positions. Preserve the small pink flower ring and colored-stone stacked rings without redesign. The wall stays unchanged; keep original portrait canvas. No necklace or earrings.",
+      "blinkPrompt": "Precision animation keyframe edit. Edit ONLY the eyelids of the woman in this reference: her visible eye is now naturally gently fully closed mid-blink, with eyelashes lowered. Preserve absolutely every other feature, pose, hair, jewelry, clothes, lighting, framing, face shape, background and image dimensions. No head movement. No smiling. Same photographic image, exactly aligned with source. This is an alternate blink frame, NOT a new composition. Do not crop. No text."
+    }
+  ],
+  "outputs": [
+    "public/videos/criseida-epocas.mp4",
+    "public/videos/criseida-epocas-mobile.mp4"
+  ]
+}

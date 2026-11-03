@@ -102,6 +102,20 @@ export const PRODUCT_QUERY = `
   }
 `;
 
+export const CATALOG_QUERY = `
+  query AvailableCatalog($cursor: String) @inContext(country: ES, language: ES) {
+    products(first: 100, after: $cursor) {
+      nodes {
+        id handle title description availableForSale
+        priceRange { minVariantPrice { amount currencyCode } }
+        featuredImage { url altText width height }
+        images(first: 2) { nodes { url altText width height } }
+      }
+      pageInfo { hasNextPage endCursor }
+    }
+  }
+`;
+
 export const SITEMAP_QUERY = `
   query StorefrontSitemap($productCursor: String, $collectionCursor: String) @inContext(country: ES, language: ES) {
     products(first: 250, after: $productCursor) {

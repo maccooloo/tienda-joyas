@@ -9,6 +9,8 @@ export type Era = {
   headline: string;
   introduction: string;
   inspiration: string;
+  demoProductHandles: string[];
+  designStudy?: { image: string; alt: string; title: string; description: string };
 };
 
 // Chapters follow the brand's release order, not historical chronology.
@@ -21,6 +23,7 @@ export const eras: Era[] = [
     headline: "Grecia. El comienzo.",
     introduction: "Nuestro primer capítulo nace de una mirada a Grecia: la calma de la escultura, los pliegues del mármol y la luz sobre una forma sencilla.",
     inspiration: "Nos inspiran las curvas, el equilibrio y los pequeños detalles que invitan a mirar más despacio. Así empieza nuestro recorrido entre arte y joyas.",
+    demoProductHandles: ["collar-de-cadena-bano-de-oro", "large-waterproof-gold-plated-hoop-earrings", "pulseira-de-charms-banhada-a-ouro"],
   },
   {
     slug: "egipto", chapter: "II", title: "Egipto", status: "upcoming", collectionHandle: "egipto",
@@ -29,6 +32,8 @@ export const eras: Era[] = [
     headline: "Egipto. La luz y el símbolo.",
     introduction: "El próximo destino de nuestra mirada: Egipto. Piedra cálida, siluetas serenas y una fascinación por las formas que guardan un significado.",
     inspiration: "Este adelanto reúne el ambiente que queremos explorar. Las piezas de este capítulo están por llegar.",
+    demoProductHandles: [],
+    designStudy: { image: "/images/eras/egipto-designs.webp", alt: "Propuesta de diseño de un collar con escarabajo turquesa y pendientes de loto", title: "Escarabajo y loto", description: "Un colgante pequeño, una nota turquesa y pendientes de líneas abiertas. Una propuesta visual para explorar este capítulo; todavía no es un producto a la venta." },
   },
   {
     slug: "roma", chapter: "III", title: "Roma", status: "upcoming", collectionHandle: "roma",
@@ -37,14 +42,16 @@ export const eras: Era[] = [
     headline: "Roma. La huella del tiempo.",
     introduction: "Después, Roma. Una mirada a los retratos, al relieve y a la presencia de los objetos que parecen guardar una historia.",
     inspiration: "Un capítulo que imaginamos entre el mármol y los reflejos del metal. Su colección se descubrirá más adelante.",
+    demoProductHandles: ["gold-plated-cuban-link-chain-necklace", "gilded-gold-statement-hoop-earrings"],
   },
   {
     slug: "renacimiento", chapter: "IV", title: "Renacimiento", status: "upcoming", collectionHandle: "renacimiento",
-    image: "/images/art-botticelli.webp",
-    imageAlt: "Retrato del taller de Botticelli reinterpretado con joyas contemporáneas",
+    image: "/images/eras/renacimiento.webp",
+    imageAlt: "Retrato inspirado en el taller de Botticelli reinterpretado con anillos florales y piedras de color",
     headline: "Renacimiento. Una nueva mirada.",
     introduction: "El recorrido continúa entre retratos, tejidos y gestos delicados. Los cuadros se convierten en el lugar donde imaginar una nueva colección.",
     inspiration: "La reinterpretación del retrato del taller de Botticelli anticipa este universo. Las joyas de la campaña ilustran la idea; la colección de este capítulo aún no está disponible.",
+    demoProductHandles: ["radiance-stackable-rings-set-brushed-gold", "semi-precious-stone-ring"],
   },
 ];
 
