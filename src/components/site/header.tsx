@@ -37,11 +37,29 @@ export function SiteHeader({ isMockShop }: { isMockShop: boolean }) {
 
   useEffect(() => {
     let previousScroll = window.scrollY;
+    let accumulatedScroll = 0;
     function updateScrollState() {
-      setIsScrolled(window.scrollY > 24);
-      if (window.scrollY < 120) setIsHidden(false);
-      else if (Math.abs(window.scrollY - previousScroll) > 6) setIsHidden(window.scrollY > previousScroll);
-      previousScroll = window.scrollY;
+      const currentScroll = window.scrollY;
+      const scrollDelta = currentScroll - previousScroll;
+      setIsScrolled(currentScroll > 24);
+
+      if (currentScroll < 120) {
+        setIsHidden(false);
+        accumulatedScroll = 0;
+      } else if (scrollDelta !== 0) {
+        if (Math.sign(scrollDelta) !== Math.sign(accumulatedScroll)) {
+          accumulatedScroll = scrollDelta;
+        } else {
+          accumulatedScroll += scrollDelta;
+        }
+
+        if (Math.abs(accumulatedScroll) > 6) {
+          setIsHidden(accumulatedScroll > 0);
+          accumulatedScroll = 0;
+        }
+      }
+
+      previousScroll = currentScroll;
     }
     updateScrollState();
     window.addEventListener("scroll", updateScrollState, { passive: true });

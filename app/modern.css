@@ -25,7 +25,7 @@ button, a { touch-action: manipulation; }
 .site-header-film:not(.site-header-scrolled):not(.site-header-menu-open) { background: linear-gradient(rgb(0 0 0 / 65%), rgb(0 0 0 / 40%)); color: var(--c-champan); }
 .site-header-film:not(.site-header-scrolled):not(.site-header-menu-open) .brand-mark { color: var(--c-oro-claro); }
 .site-header:not(.site-header-film) { background: var(--c-marmol); color: var(--c-oro-profundo); }
-.site-header-menu-open { background: var(--c-marmol); color: var(--c-noche); z-index: 40; }
+.site-header-menu-open { background: var(--c-marmol); color: var(--c-noche); z-index: 60; }
 .site-header-scrolled { background: var(--c-marmol); color: var(--c-noche); box-shadow: 0 1px 0 var(--c-piedra); }
 .brand-mark { grid-column: 2; grid-row: 1; font-family: var(--font-marca); font-size: 24px; letter-spacing: .14em; justify-self: center; color: var(--c-oro-profundo); }
 .desktop-nav { grid-column: 1; grid-row: 1; display: flex; gap: 20px; }
@@ -41,7 +41,7 @@ button, a { touch-action: manipulation; }
 .cart-count::after { content: ')'; }
 
 .campaign-film { position: relative; isolation: isolate; height: min(56.25vw, 900px); min-height: 540px; overflow: hidden; background: var(--c-noche); color: var(--c-marmol); }
-.campaign-film .campaign-poster, .campaign-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.campaign-film .campaign-poster, .campaign-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
 .campaign-video { z-index: 1; }
 .campaign-video.has-failed { display: none; }
 .manifesto-film::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgb(0 0 0 / 60%), rgb(0 0 0 / 38%) 45%, transparent 85%); }
@@ -50,8 +50,6 @@ button, a { touch-action: manipulation; }
 .film-copy p, .film-copy > a { margin: 0; font-size: 11px; line-height: 1.5; font-weight: 400; }
 .film-copy > a { display: inline-block; padding-bottom: 6px; border-bottom: 1px solid var(--c-oro); color: var(--c-champan); font-family: var(--font-texto); font-size: 12px; }
 .film-copy > a:hover { opacity: .75; }
-.film-toggle { position: absolute; z-index: 3; right: 16px; bottom: 18px; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid var(--c-oro-brunido); background: rgb(0 0 0 / 40%); color: var(--c-champan); cursor: pointer; font-size: 10px; text-transform: uppercase; }
-.film-toggle > span:first-child { font-size: 16px; }
 .film-chapters { position: absolute; z-index: 3; left: 4vw; bottom: 25px; display: flex; gap: 22px; }
 .film-chapters button { width: 85px; min-height: 44px; padding: 10px 0; border: 0; border-top: 1px solid rgb(235 221 184 / 35%); background: transparent; color: var(--c-champan); font: 10px var(--font-texto); text-align: left; cursor: pointer; }
 .film-chapters button[aria-pressed="true"] { border-color: var(--c-oro-claro); color: var(--c-oro-claro); }
@@ -302,7 +300,6 @@ body:has(.site-header-demo) .is-hover.shop-menu-backdrop { top: 77px; }
   .film-copy h1 { font-size: clamp(39px, 11vw, 48px); letter-spacing: -.02em; margin: 8px 0 18px; }
   .film-copy p { font-size: 10px; }
   .film-copy > a { font-size: 12px; }
-  .film-toggle { right: 12px; bottom: 12px; }
   .film-chapters { left: 20px; right: 20px; bottom: 60px; justify-content: space-between; gap: 10px; }
   .film-chapters button { width: auto; flex: 1; font-size: 9px; }
   .shop-section-bar { padding: 16px 12px; font-size: 18px; }
